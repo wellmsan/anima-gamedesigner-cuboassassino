@@ -1,5 +1,5 @@
-using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MoveJogador : MonoBehaviour
 {
@@ -10,11 +10,44 @@ public class MoveJogador : MonoBehaviour
     void Update()
     {
         // Ação: Let o teclado (Setas ou WASD) para mover o jogador
-        float eixoX = Input.GetAxis("Horizontal"); // Captura o input horizontal
-        float eixoZ = Input.GetAxis("Vertical"); // Captura o input vertical
+        Vector2 movimento = LerMovimento();
 
         // Resultado: Move o jogador com base no input e na velocidade
-        Vector3 direcao = new Vector3(eixoX, 0, eixoZ);
+        Vector3 direcao = new Vector3(movimento.x, 0, movimento.y);
         transform.Translate(direcao * velocidade * Time.deltaTime); // Move o jogador
+    }
+
+    private Vector2 LerMovimento()
+    {
+        Keyboard teclado = Keyboard.current;
+
+        if (teclado == null)
+        {
+            return Vector2.zero;
+        }
+
+        Vector2 movimento = Vector2.zero;
+
+        if (teclado.aKey.isPressed || teclado.leftArrowKey.isPressed)
+        {
+            movimento.x -= 1f;
+        }
+
+        if (teclado.dKey.isPressed || teclado.rightArrowKey.isPressed)
+        {
+            movimento.x += 1f;
+        }
+
+        if (teclado.sKey.isPressed || teclado.downArrowKey.isPressed)
+        {
+            movimento.y -= 1f;
+        }
+
+        if (teclado.wKey.isPressed || teclado.upArrowKey.isPressed)
+        {
+            movimento.y += 1f;
+        }
+
+        return Vector2.ClampMagnitude(movimento, 1f);
     }
 }

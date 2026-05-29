@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7d33b7e9ce1b4cbabd43015d92eb285, type: 3}
   m_Name: CuboStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  vidaMaxima: 0
-  velocidade: 0
+  vidaMaxima: 50
+  velocidade: 5
